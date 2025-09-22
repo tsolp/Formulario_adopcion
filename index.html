@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contacto</title>
+    <meta name="description" content="Formulario de contacto simple en GitHub Pages usando Formspree" />
+    <style>
+      :root { --bg:#0b1220; --card:#121a2b; --muted:#8aa0c8; --text:#e8eefc; --accent:#7aa2ff; --accent2:#5ad1a6; }
+      *{box-sizing:border-box}
+      body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Helvetica,Arial,sans-serif;color:var(--text);background:radial-gradient(1200px 800px at 20% -10%,#1b2540,transparent),
+            radial-gradient(1000px 900px at 120% 10%,#18223a,transparent),var(--bg);}
+      .wrap{max-width:880px;margin:5vh auto;padding:24px}
+      .card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
+            border:1px solid rgba(255,255,255,.08);backdrop-filter: blur(6px);
+            border-radius:20px; padding:28px; box-shadow:0 20px 50px rgba(0,0,0,.35)}
+      h1{font-size:clamp(1.6rem,2.2vw,2.2rem);margin:0 0 4px}
+      p.lead{color:var(--muted);margin-top:0}
+      form{display:grid;gap:16px;margin-top:12px}
+      .row{display:grid;gap:16px;grid-template-columns:1fr}
+      @media (min-width:700px){ .row{grid-template-columns:1fr 1fr} }
+      label{font-weight:600; font-size:.95rem}
+      input, textarea, select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.15);
+        background:rgba(9,14,25,.7); color:var(--text); outline:none; transition:border-color .2s, box-shadow .2s}
+      input:focus, textarea:focus, select:focus{border-color:var(--accent); box-shadow:0 0 0 3px rgba(122,162,255,.25)}
+      textarea{min-height:140px; resize:vertical}
+      .hint{color:var(--muted);font-size:.85rem}
+      .actions{display:flex;gap:12px;align-items:center;justify-content:flex-start;margin-top:6px}
+      button{appearance:none;border:0;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer}
+      .btn-primary{background:linear-gradient(135deg,var(--accent),#9fb5ff); color:#0b1220}
+      .btn-ghost{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,.15)}
+      .success, .error{border-radius:14px;padding:14px 16px}
+      .success{background:rgba(90,209,166,.15); border:1px solid rgba(90,209,166,.35)}
+      .error{background:rgba(255,110,110,.1); border:1px solid rgba(255,110,110,.35)}
+      .hidden{display:none}
+      .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);margin:6px 0 2px}
+      .required{color:#ff9b9b}
+      .brand{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+      .brand-badge{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent2),var(--accent));display:grid;place-items:center;color:#0b1220;font-weight:900}
+      footer{opacity:.7;font-size:.85rem;margin-top:18px}
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="card">
+        <div class="brand">
+          <div class="brand-badge">F</div>
+          <div>
+            <h1>Formulario de contacto</h1>
+            <p class="lead">Hospedado en <strong>GitHub Pages</strong> y procesado por <strong>Formspree</strong>.</p>
+          </div>
+        </div>
+
+        <div id="msg-success" class="success hidden" role="status">¡Gracias! Tu mensaje fue enviado correctamente.</div>
+        <div id="msg-error" class="error hidden" role="alert">Ocurrió un error al enviar. Intenta nuevamente.</div>
+
+        <div class="divider"></div>
+
+        <!--
+          Para usar Formspree:
+          1) Crea una cuenta y un formulario. Obtendrás un endpoint tipo https://formspree.io/f/XYZabcd
+          2) Reemplaza el valor de ACTION abajo con tu endpoint.
+          3) (Opcional) Agrega un _next con URL de "gracias" si quieres redirigir tras el envío (cuando no uses AJAX).
+        -->
+        <form id="contact-form" action="https://formspree.io/f/XYZabcd" method="POST">
+          <div class="row">
+            <div>
+              <label for="nombre">Nombre <span class="required">*</span></label>
+              <input id="nombre" name="nombre" type="text" required autocomplete="name" />
+            </div>
+            <div>
+              <label for="email">Correo <span class="required">*</span></label>
+              <input id="email" name="email" type="email" required autocomplete="email" />
+            </div>
+          </div>
+
+          <div>
+            <label for="asunto">Asunto</label>
+            <input id="asunto" name="asunto" type="text" />
+          </div>
+
+          <div>
+            <label for="mensaje">Mensaje <span class="required">*</span></label>
+            <textarea id="mensaje" name="mensaje" required placeholder="Cuéntame en qué te puedo ayudar…"></textarea>
+          </div>
+
+          <!-- Honeypot anti-spam sugerido por Formspree -->
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <!-- Redirección opcional SIN usar AJAX -->
+          <!-- <input type="hidden" name="_next" value="https://tuusuario.github.io/tu-repo/gracias.html"> -->
+
+          <div class="actions">
+            <button class="btn-primary" type="submit">Enviar</button>
+            <button class="btn-ghost" type="reset">Limpiar</button>
+            <span class="hint">Campos marcados con <span class="required">*</span> son obligatorios.</span>
+          </div>
+        </form>
+
+        <footer>
+          <p>Consejo: en el panel de Formspree puedes activar notificaciones por email y ver los envíos.</p>
+        </footer>
+      </section>
+    </main>
+
+    <script>
+      // Envío con fetch para permanecer en la misma página.
+      // Alternativamente, elimina este script para usar POST tradicional + _next.
+      const form = document.getElementById('contact-form');
+      const success = document.getElementById('msg-success');
+      const error = document.getElementById('msg-error');
+
+      async function handleSubmit(e){
+        e.preventDefault();
+        success.classList.add('hidden');
+        error.classList.add('hidden');
+
+        const data = new FormData(form);
+        try{
+          const res = await fetch(form.action, {
+            method: 'POST',
+            body: data,
+            headers: { 'Accept': 'application/json' }
+          });
+          if(res.ok){
+            form.reset();
+            success.classList.remove('hidden');
+            success.scrollIntoView({behavior:'smooth', block:'center'});
+          } else {
+            // Si Formspree devuelve errores de validación, intenta leerlos
+            const err = await res.json().catch(()=>({}));
+            console.error(err);
+            error.classList.remove('hidden');
+            error.scrollIntoView({behavior:'smooth', block:'center'});
+          }
+        }catch(err){
+          console.error(err);
+          error.classList.remove('hidden');
+          error.scrollIntoView({behavior:'smooth', block:'center'});
+        }
+      }
+
+      form.addEventListener('submit', handleSubmit);
+    </script>
+  </body>
+</html>
