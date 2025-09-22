@@ -159,10 +159,15 @@
               <p class="hint">Esta información nos ayuda a adaptar el proceso a tu contexto de hogar.</p>
             </div>
 
+          
             <div class="row">
               <div>
                 <label for="personas_hogar">¿Cuántas personas viven en el hogar? <span class="required">*</span></label>
                 <input id="personas_hogar" name="personas_hogar" type="number" min="1" step="1" required />
+                /* Espacio entre bloques de preguntas (fuera del fieldset y dentro) */
+                form > :not(.actions):not(.divider) { margin-block: 14px; }
+                fieldset { display: grid; gap: 14px; }           /* separación dentro del fieldset */
+                fieldset + .actions { margin-top: 16px; }        /* separa preguntas de los botones */
               </div>
               <div>
                 <label>¿Todas están de acuerdo con la adopción? <span class="required">*</span></label>
