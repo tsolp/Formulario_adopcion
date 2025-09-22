@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Contacto</title>
     <meta name="description" content="Formulario de contacto simple en GitHub Pages usando Formspree" />
-    <style>
+    
+<style>
   :root{
-    --bg:#fffaf6; --card:#ffffff; --muted:#6d6a73; --text:#232027;
-    --accent:#ff8a5c; --accent2:#59d2b2;
+    /* Claro neutro con acento azul */
+    --bg:#f6f7fb; --card:#ffffff; --muted:#5b6578; --text:#1f2937;
+    --accent:#2563eb; --accent2:#10b981;
   }
   *{box-sizing:border-box}
   body{
@@ -20,10 +22,10 @@
   .wrap{max-width:880px;margin:5vh auto;padding:24px}
   .card{
     background:var(--card);
-    border:1px solid #f1e6df;
+    border:1px solid #e6e8ef;            /* borde más definido */
     border-radius:20px;
     padding:28px;
-    box-shadow:0 12px 30px rgba(0,0,0,.06);
+    box-shadow:0 12px 28px rgba(0,0,0,.06);
   }
   h1{font-size:clamp(1.6rem,2.2vw,2.2rem);margin:0 0 4px}
   p.lead{color:var(--muted);margin-top:0}
@@ -33,45 +35,55 @@
   label{font-weight:600; font-size:.95rem}
   input, textarea, select{
     width:100%;padding:12px 14px;border-radius:12px;
-    border:1px solid #edded6;background:#fff;color:var(--text);
+    border:1px solid #d8dbe5;            /* gris + firme que el pastel */
+    background:#fff;color:var(--text);
     outline:none; transition:border-color .2s, box-shadow .2s
   }
+  input::placeholder, textarea::placeholder{color:#9aa3b2}
   input:focus, textarea:focus, select:focus{
-    border-color:var(--accent); box-shadow:0 0 0 3px rgba(255,138,92,.25)
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(37,99,235,.18)  /* azul suave al foco */
   }
   textarea{min-height:140px; resize:vertical}
   .hint{color:var(--muted);font-size:.85rem}
   .actions{display:flex;gap:12px;align-items:center;justify-content:flex-start;margin-top:6px}
   button{appearance:none;border:0;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer}
-  .btn-primary{background:linear-gradient(135deg,var(--accent),#ffb199); color:#2b1d16}
-  .btn-ghost{background:transparent;color:var(--text);border:1px solid #edded6}
+  .btn-primary{
+    background:linear-gradient(135deg,var(--accent),#4f7df2);
+    color:#fff;
+  }
+  .btn-ghost{background:transparent;color:var(--text);border:1px solid #d8dbe5}
   .success, .error{border-radius:14px;padding:14px 16px}
-  .success{background:rgba(89,210,178,.15); border:1px solid rgba(89,210,178,.35)}
-  .error{background:rgba(255,110,110,.1); border:1px solid rgba(255,110,110,.35)}
+  .success{background:rgba(16,185,129,.10); border:1px solid rgba(16,185,129,.35)}
+  .error{background:rgba(220,38,38,.08); border:1px solid rgba(220,38,38,.28)}
   .hidden{display:none}
-  .divider{height:1px;background:linear-gradient(90deg,transparent,#f1e6df,transparent);margin:6px 0 2px}
-  .required{color:#ff7b7b}
+  .divider{height:1px;background:linear-gradient(90deg,transparent,#e6e8ef,transparent);margin:6px 0 2px}
+  .required{color:#ef4444} /* rojo más sobrio */
+
   .brand{display:flex;align-items:center;gap:10px;margin-bottom:10px}
   .brand-badge{
     width:36px;height:36px;border-radius:10px;
     background:linear-gradient(135deg,var(--accent2),var(--accent));
     display:grid;place-items:center;color:#fff;font-weight:900
   }
-  footer{opacity:.7;font-size:.85rem;margin-top:18px}
 
-  /* === Mejoras visuales de validación === */
+  /* === Validación menos estridente === */
+  /* Rojo suavizado (antes muy luminoso) */
   input:required:invalid, textarea:required:invalid, select:required:invalid {
-    border-color:#ff7b7b; box-shadow:0 0 0 3px rgba(255,123,123,.15);
+    border-color:#e57373;                 /* rojo desaturado */
+    box-shadow:0 0 0 3px rgba(229,115,115,.18);
   }
+  /* Verde suave al OK */
   input:required:valid, textarea:required:valid, select:required:valid {
-    border-color:rgba(90,209,166,.55);
+    border-color:#34d399;
   }
-  .shake { animation: shake .3s linear 0s 1; }
+  .shake { animation: shake .30s linear 0s 1; }
   @keyframes shake {
     0%{transform:translateX(0)} 25%{transform:translateX(-4px)}
     50%{transform:translateX(4px)} 75%{transform:translateX(-4px)} 100%{transform:translateX(0)}
   }
 </style>
+
 
   </head>
   <body>
