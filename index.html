@@ -90,6 +90,96 @@
           <!-- Redirección opcional SIN usar AJAX -->
           <!-- <input type="hidden" name="_next" value="https://tuusuario.github.io/tu-repo/gracias.html"> -->
 
+          <!-- ➕ Preguntas adicionales para adopción -->
+          <fieldset style="border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:12px 14px">
+            <legend style="padding:0 6px;color:var(--muted)">Cuestionario de adopción</legend>
+
+            <div>
+              <label>¿Su vivienda es propia o arrendada? <span class="required">*</span></label>
+              <div style="display:flex;gap:14px;margin-top:6px">
+                <label><input type="radio" name="vivienda" value="propia" required> Propia</label>
+                <label><input type="radio" name="vivienda" value="arrendada" required> Arrendada</label>
+              </div>
+              <p class="hint">Debe ser <strong>propia</strong> para continuar con la adopción.</p>
+            </div>
+
+            <div class="row">
+              <div>
+                <label for="personas_hogar">¿Cuántas personas viven en el hogar? <span class="required">*</span></label>
+                <input id="personas_hogar" name="personas_hogar" type="number" min="1" step="1" required />
+              </div>
+              <div>
+                <label>¿Todas están de acuerdo con la adopción? <span class="required">*</span></label>
+                <div style="display:flex;gap:14px;margin-top:6px">
+                  <label><input type="radio" name="acuerdo_total" value="si" required> Sí</label>
+                  <label><input type="radio" name="acuerdo_total" value="no" required> No</label>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label for="lugar_vivir">¿Dónde vivirá principalmente la mascota? <span class="required">*</span></label>
+              <select id="lugar_vivir" name="lugar_vivir" required>
+                <option value="" selected disabled>Selecciona una opción</option>
+                <option>Dentro de la casa</option>
+                <option>Fuera</option>
+                <option>Ambos</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="acompanamiento">Durante el día, ¿estará acompañada o pasará varias horas sola? <span class="required">*</span></label>
+              <select id="acompanamiento" name="acompanamiento" required>
+                <option value="" selected disabled>Selecciona una opción</option>
+                <option>Acompañada la mayor parte del día</option>
+                <option>Estará sola varias horas</option>
+                <option>Mixto (algunas horas sola)</option>
+              </select>
+            </div>
+
+            <div>
+              <label>¿Podrá garantizar paseos diarios? <span class="required">*</span></label>
+              <div style="display:flex;gap:14px;margin-top:6px;align-items:center">
+                <label><input type="radio" name="paseos_diarios" value="si" required> Sí</label>
+                <label><input type="radio" name="paseos_diarios" value="no" required> No</label>
+                <label id="cuantos_wrap" class="hidden" style="margin-left:10px">
+                  ¿Cuántos aprox.? <input id="paseos_cantidad" name="paseos_cantidad" type="number" min="1" step="1" style="width:110px">
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <label for="otras_mascotas">¿Tiene actualmente otras mascotas en el hogar? ¿Cómo describiría su carácter?</label>
+              <textarea id="otras_mascotas" name="otras_mascotas" placeholder="Ej.: 1 perro y 1 gato; carácter: sociables, tranquilos, etc."></textarea>
+            </div>
+
+            <div>
+              <label for="responsable_separacion">En caso de separación o divorcio, ¿quién asumiría la responsabilidad del cuidado?</label>
+              <input id="responsable_separacion" name="responsable_separacion" type="text" placeholder="Nombre / relación" />
+            </div>
+
+            <div>
+              <label>¿Cuenta con medios económicos para alimentación, controles y emergencias? <span class="required">*</span></label>
+              <div style="display:flex;gap:14px;margin-top:6px">
+                <label><input type="radio" name="medios_economicos" value="si" required> Sí</label>
+                <label><input type="radio" name="medios_economicos" value="no" required> No</label>
+              </div>
+            </div>
+
+            <div>
+              <label for="planes_vacaciones">En vacaciones o viajes, ¿qué planes tendría para el cuidado?</label>
+              <textarea id="planes_vacaciones" name="planes_vacaciones" placeholder="Encargado/a de confianza, residencia temporal, llevarla, etc."></textarea>
+            </div>
+
+            <div>
+              <label>¿Su patio o espacio exterior está completamente cerrado y seguro? <span class="required">*</span></label>
+              <div style="display:flex;gap:14px;margin-top:6px">
+                <label><input type="radio" name="patio_cerrado" value="si" required> Sí</label>
+                <label><input type="radio" name="patio_cerrado" value="no" required> No</label>
+              </div>
+            </div>
+          </fieldset>
+
           <div class="actions">
             <button class="btn-primary" type="submit">Enviar</button>
             <button class="btn-ghost" type="reset">Limpiar</button>
@@ -139,6 +229,38 @@
           error.scrollIntoView({behavior:'smooth', block:'center'});
         }
       }
+
+      // Lógica condicional del cuestionario
+      const viviendaRadios = document.querySelectorAll('input[name="vivienda"]');
+      const paseosRadios = document.querySelectorAll('input[name="paseos_diarios"]');
+      const cuantosWrap = document.getElementById('cuantos_wrap');
+      const paseosCantidad = document.getElementById('paseos_cantidad');
+
+      paseosRadios.forEach(r => r.addEventListener('change', () => {
+        if (r.checked && r.value === 'si') {
+          cuantosWrap.classList.remove('hidden');
+          paseosCantidad.setAttribute('required','required');
+        } else if (r.checked && r.value === 'no') {
+          cuantosWrap.classList.add('hidden');
+          paseosCantidad.removeAttribute('required');
+          paseosCantidad.value = '';
+        }
+      }));
+
+      function viviendaEsPropia(){
+        const sel = document.querySelector('input[name="vivienda"]:checked');
+        return sel && sel.value === 'propia';
+      }
+
+      form.addEventListener('submit', (e) => {
+        if (!viviendaEsPropia()) {
+          e.preventDefault();
+          error.textContent = 'Para continuar con la adopción, la vivienda debe ser propia.';
+          error.classList.remove('hidden');
+          error.scrollIntoView({behavior:'smooth', block:'center'});
+          return;
+        }
+      });
 
       form.addEventListener('submit', handleSubmit);
     </script>
