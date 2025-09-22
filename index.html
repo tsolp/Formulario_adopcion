@@ -164,8 +164,25 @@
 
           <!-- ➕ Preguntas adicionales para adopción -->
           <fieldset style="border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:12px 14px">
-            <legend style="padding:0 6px;color:var(--muted)">Cuestionario de adopción</legend>
+            <legend style="padding:0 6px;color:var(--muted)">Formulario de adopción</legend>
 
+            <div>
+              <label>¿Estás interesado en una adopción definitiva o en ser hogar temporal?<span class="required">*</span></label>
+              <div style="display:flex;gap:14px;margin-top:6px">
+                <label><input type="radio" name="tipo_adopcion" value="adopcion_definitiva" required> Adopción</label>
+                <label><input type="radio" name="tipo_adopcion" value="hogar_temporal" required> Hogar temporal</label>
+              </div>
+            </div>
+            
+            <div>
+              <label>¿Vives en casa o departamento? <span class="required">*</span></label>
+              <div style="display:flex;gap:14px;margin-top:6px">
+                <label><input type="radio" name="tipo_vivienda" value="casa" required> Casa</label>
+                <label><input type="radio" name="tipo_vivienda" value="departamento" required> Departamento</label>
+              </div>
+              <p class="hint">Esta información nos ayuda a adaptar el proceso a tu contexto de hogar.</p>
+            </div>
+            
             <div>
               <label>¿Tu vivienda es propia o arrendada? <span class="required">*</span></label>
               <div style="display:flex;gap:14px;margin-top:6px">
@@ -240,6 +257,11 @@
             </div>
 
             <div class="q">
+              <label>En este espacio puedes comentarnos más sobre la respuesta anterior <span class="required">*</span></label>
+              <input id="comentario_sitaucion_economica" name="comentario_sitaucion_economica" type="text" required placeholder="Comentario" />
+            </div>
+           
+            <div class="q">
               <label for="planes_vacaciones">En vacaciones o viajes, ¿qué planes tendría para el cuidado?</label>
               <textarea id="planes_vacaciones" name="planes_vacaciones" required placeholder="Encargado/a de confianza, residencia temporal, llevarla, etc."></textarea>
             </div>
@@ -250,6 +272,12 @@
                 <label><input type="radio" name="patio_cerrado" value="si" required> Sí</label>
                 <label><input type="radio" name="patio_cerrado" value="no" required> No</label>
               </div>
+
+            <div class="q">
+              <label>En este espacio puedes comentarnos más sobre la respuesta anterior <span class="required">*</span></label>
+              <input id="comentario_patio" name="comentario_patio" type="text" required placeholder="Comentario espacio exterior" />
+            </div>
+            
             </div>
           </fieldset>
 
