@@ -38,6 +38,11 @@
       .brand{display:flex;align-items:center;gap:10px;margin-bottom:10px}
       .brand-badge{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent2),var(--accent));display:grid;place-items:center;color:#0b1220;font-weight:900}
       footer{opacity:.7;font-size:.85rem;margin-top:18px}
+      /* === Mejoras visuales de validación === */
+      input:required:invalid, textarea:required:invalid, select:required:invalid { border-color:#ff7b7b; box-shadow:0 0 0 3px rgba(255,123,123,.15); }
+      input:required:valid, textarea:required:valid, select:required:valid { border-color:rgba(90,209,166,.55); }
+      .shake { animation: shake .3s linear 0s 1; }
+      @keyframes shake { 0%{transform:translateX(0)} 25%{transform:translateX(-4px)} 50%{transform:translateX(4px)} 75%{transform:translateX(-4px)} 100%{transform:translateX(0)} }
     </style>
   </head>
   <body>
@@ -76,12 +81,12 @@
 
           <div>
             <label for="asunto">Asunto</label>
-            <input id="asunto" name="asunto" type="text" />
+            <input id="asunto" name="asunto" type="text" required />
           </div>
 
           <div>
-            <label for="mensaje">¿Cuál es su principal motivación para adoptar? <span class="required">*</span></label>
-            <textarea id="mensaje" name="mensaje" required placeholder="Cuéntanos de tí, de tu núcleo familiar, y de las principales motivaciones que tienes para adoptar…"></textarea>
+            <label for="mensaje">Mensaje <span class="required">*</span></label>
+            <textarea id="mensaje" name="mensaje" required placeholder="Cuéntame en qué te puedo ayudar…"></textarea>
           </div>
 
           <!-- Honeypot anti-spam sugerido por Formspree -->
@@ -150,12 +155,12 @@
 
             <div>
               <label for="otras_mascotas">¿Tiene actualmente otras mascotas en el hogar? ¿Cómo describiría su carácter?</label>
-              <textarea id="otras_mascotas" name="otras_mascotas" placeholder="Ej.: 1 perro y 1 gato; carácter: sociables, tranquilos, etc."></textarea>
+              <textarea id="otras_mascotas" name="otras_mascotas" required placeholder="Ej.: 1 perro y 1 gato; carácter: sociables, tranquilos, etc."></textarea>
             </div>
 
             <div>
               <label for="responsable_separacion">En caso de separación o divorcio, ¿quién asumiría la responsabilidad del cuidado?</label>
-              <input id="responsable_separacion" name="responsable_separacion" type="text" placeholder="Nombre / relación" />
+              <input id="responsable_separacion" name="responsable_separacion" type="text" required placeholder="Nombre / relación" />
             </div>
 
             <div>
@@ -168,7 +173,7 @@
 
             <div>
               <label for="planes_vacaciones">En vacaciones o viajes, ¿qué planes tendría para el cuidado?</label>
-              <textarea id="planes_vacaciones" name="planes_vacaciones" placeholder="Encargado/a de confianza, residencia temporal, llevarla, etc."></textarea>
+              <textarea id="planes_vacaciones" name="planes_vacaciones" required placeholder="Encargado/a de confianza, residencia temporal, llevarla, etc."></textarea>
             </div>
 
             <div>
@@ -253,6 +258,21 @@
       }
 
       form.addEventListener('submit', (e) => {
+        // 1) Validación nativa HTML5
+        if (!form.checkValidity()) {
+          e.preventDefault();
+          // Muestra los tooltips nativos
+          form.reportValidity();
+          // Enfoca y anima el primer campo inválido
+          const firstInvalid = form.querySelector(':invalid');
+          if (firstInvalid) {
+            firstInvalid.scrollIntoView({behavior:'smooth', block:'center'});
+            firstInvalid.classList.add('shake');
+            setTimeout(()=>firstInvalid.classList.remove('shake'), 400);
+          }
+          return;
+        }
+        // 2) Regla de negocio: vivienda debe ser propia
         if (!viviendaEsPropia()) {
           e.preventDefault();
           error.textContent = 'Para continuar con la adopción, la vivienda debe ser propia.';
