@@ -68,10 +68,20 @@
   }
 
   /* === Validación menos estridente === */
-  /* Rojo suavizado (antes muy luminoso) */
-  input:required:invalid, textarea:required:invalid, select:required:invalid {
-    border-color:#e57373;                 /* rojo desaturado */
-    box-shadow:0 0 0 3px rgba(229,115,115,.18);
+  /* Desactiva borde/halo rojo en inválidos */
+  input:required:invalid,
+  textarea:required:invalid,
+  select:required:invalid{
+    border-color:#d8dbe5 !important; /* gris neutro */
+    box-shadow:none !important;      /* sin halo */
+  }
+  
+  /* Evita que al enfocar un campo inválido se pinte rojo */
+  input:focus:invalid,
+  textarea:focus:invalid,
+  select:focus:invalid{
+    border-color:var(--accent) !important;           /* usa tu color de foco */
+    box-shadow:0 0 0 3px rgba(37,99,235,.18) !important; /* halo azul suave */
   }
   /* Verde suave al OK */
   input:required:valid, textarea:required:valid, select:required:valid {
